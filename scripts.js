@@ -37,6 +37,7 @@ function startTimer() {
 
 function resetMode(mode) {
   clearInterval(interval);
+  timer.mode = mode;
   timer.timeRemaining = {
     total: timer[mode] * 60,
     minutes: timer[mode],
@@ -48,6 +49,8 @@ function resetMode(mode) {
 function updateClock() {
   if (timer.timeRemaining.total === 0) {
     clearInterval(interval);
+    startStopButton.innerHTML = "Start";
+    resetMode(timer.mode);
   } else if (timer.timeRemaining.seconds === 0) {
     timer.timeRemaining.minutes--;
     timer.timeRemaining.seconds = 59;
