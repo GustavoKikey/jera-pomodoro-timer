@@ -3,11 +3,15 @@ const timer = {
   breakTime: 1,
   teste: 10,
 };
+
 var pomodoroDone = new Audio("pomodoro.wav");
+var breakDone = new Audio("break.wav");
 let interval;
+let sessionsDone = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
   resetMode("pomodoroTime");
+  Notification.requestPermission();
 });
 
 const pomodorobutton = document.getElementById("pomodoro-btn");
@@ -31,6 +35,17 @@ startStopButton.addEventListener("click", () => {
   }
 });
 
+function notify(mode) {
+  if (mode == "pomodoroTime") {
+    text = "Pomodoro Done!";
+  } else {
+    text = "Break Done!";
+  }
+  const notification = new Notification(text, {
+    body: "O timer acabou!",
+  });
+}
+
 function startTimer() {
   interval = setInterval(updateClock, 1000);
 }
@@ -48,10 +63,20 @@ function resetMode(mode) {
 
 function updateClock() {
   if (timer.timeRemaining.total === 0) {
-    pomodoroDone.play();
-    clearInterval(interval);
-    startStopButton.innerHTML = "Start";
-    resetMode(timer.mode);
+    if (timer.mode === "pomodoroTime") {
+      clearInterval(interval);
+      startStopButton.innerHTML = "Start";
+      resetMode(timer.mode);
+      notify(timer.mode);
+      pomodoroDone.play();
+      sessionsDone++;
+    } else {
+      clearInterval(interval);
+      startStopButton.innerHTML = "Start";
+      resetMode(timer.mode);
+      notify(timer.mode);
+      breakDone.play();
+    }
   } else if (timer.timeRemaining.seconds === 0) {
     timer.timeRemaining.minutes--;
     timer.timeRemaining.seconds = 59;
