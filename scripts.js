@@ -1,6 +1,6 @@
 const timer = {
-  pomodoroTime: 2,
-  breakTime: 1,
+  pomodoroTime: 1,
+  breakTime: 2,
   teste: 10,
 };
 
@@ -8,6 +8,7 @@ var pomodoroDone = new Audio("pomodoro.wav");
 var breakDone = new Audio("break.wav");
 let interval;
 let sessionsDone = 0;
+let sessionsBreak = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
   resetMode("pomodoroTime");
@@ -63,20 +64,7 @@ function resetMode(mode) {
 
 function updateClock() {
   if (timer.timeRemaining.total === 0) {
-    if (timer.mode === "pomodoroTime") {
-      clearInterval(interval);
-      startStopButton.innerHTML = "Start";
-      resetMode(timer.mode);
-      notify(timer.mode);
-      pomodoroDone.play();
-      sessionsDone++;
-    } else {
-      clearInterval(interval);
-      startStopButton.innerHTML = "Start";
-      resetMode(timer.mode);
-      notify(timer.mode);
-      breakDone.play();
-    }
+    endClock();
   } else if (timer.timeRemaining.seconds === 0) {
     timer.timeRemaining.minutes--;
     timer.timeRemaining.seconds = 59;
@@ -87,10 +75,39 @@ function updateClock() {
   drawClock();
 }
 
+function endClock() {
+  if (timer.mode === "pomodoroTime") {
+    clearInterval(interval);
+    startStopButton.innerHTML = "Start";
+    resetMode(timer.mode);
+    notify(timer.mode);
+    pomodoroDone.play();
+    sessionsDone++;
+    sessionsBreak++;
+    updateSessions();
+  } else {
+    clearInterval(interval);
+    startStopButton.innerHTML = "Start";
+    resetMode(timer.mode);
+    notify(timer.mode);
+    breakDone.play();
+  }
+}
+
 function drawClock() {
   let minutes = `${timer.timeRemaining.minutes}`.padStart(2, "0");
   let seconds = `${timer.timeRemaining.seconds}`.padStart(2, "0");
 
   document.getElementById("minute").innerHTML = minutes;
   document.getElementById("second").innerHTML = seconds;
+}
+
+function updateSessions() {
+  document.getElementById("sessions").innerHTML = sessionsDone;
+  if (sessionsBreak === 4) {
+    const notification = new Notification("Você já fez 4 sessões!", {
+      body: "Que tal fazer um descanso?",
+    });
+    sessionsBreak = 0;
+  }
 }
