@@ -24,6 +24,11 @@ shortbreakbutton.addEventListener("click", () => {
   resetMode("breakTime");
 });
 
+const changeButton = document.getElementById("change-btn");
+changeButton.addEventListener("click", () => {
+  changePomodoroTime();
+});
+
 const startStopButton = document.getElementById("startstop-btn");
 startStopButton.addEventListener("click", () => {
   if (startStopButton.innerHTML === "Start") {
@@ -110,4 +115,10 @@ function updateSessions() {
     });
     sessionsBreak = 0;
   }
+}
+
+function changePomodoroTime() {
+  let newTime = document.getElementById("pomodoro-time").value;
+  timer.pomodoroTime = newTime;
+  resetMode("pomodoroTime");
 }

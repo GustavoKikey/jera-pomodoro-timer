@@ -39,3 +39,7 @@ button {
 button:hover {
   background-color: #ff5454;
 }
+
+input {
+  padding: 15px 32px;
+}
