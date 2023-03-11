@@ -1,4 +1,4 @@
-:tomato: #Jera Pomodoro Timer :tomato:
+#Jera Pomodoro Timer :tomato:
 
 Um timer baseado no método de pomodoro, criado para o Processo Seletivo da Jera Academy.
 
