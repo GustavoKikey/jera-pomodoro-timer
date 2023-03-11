@@ -13,13 +13,22 @@ document.addEventListener("DOMContentLoaded", () => {
 const pomodorobutton = document.getElementById("pomodoro-btn");
 pomodorobutton.addEventListener("click", () => {
   resetMode("pomodoroTime");
-  startTimer();
 });
 
 const shortbreakbutton = document.getElementById("break-btn");
 shortbreakbutton.addEventListener("click", () => {
   resetMode("breakTime");
-  startTimer();
+});
+
+const startStopButton = document.getElementById("startstop-btn");
+startStopButton.addEventListener("click", () => {
+  if (startStopButton.innerHTML === "Start") {
+    startStopButton.innerHTML = "Stop";
+    startTimer();
+  } else {
+    startStopButton.innerHTML = "Start";
+    clearInterval(interval);
+  }
 });
 
 function startTimer() {
