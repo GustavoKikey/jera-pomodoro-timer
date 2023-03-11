@@ -42,4 +42,6 @@ button:hover {
 
 input {
   padding: 15px 32px;
+  background-color: #93b694;
+  border: none;
 }
