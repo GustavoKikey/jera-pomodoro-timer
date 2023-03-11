@@ -3,7 +3,7 @@ const timer = {
   breakTime: 1,
   teste: 10,
 };
-
+var pomodoroDone = new Audio("pomodoro.wav");
 let interval;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -48,6 +48,7 @@ function resetMode(mode) {
 
 function updateClock() {
   if (timer.timeRemaining.total === 0) {
+    pomodoroDone.play();
     clearInterval(interval);
     startStopButton.innerHTML = "Start";
     resetMode(timer.mode);
