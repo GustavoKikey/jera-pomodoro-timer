@@ -1,7 +1,6 @@
 const timer = {
-  pomodoroTime: 1,
-  breakTime: 2,
-  teste: 10,
+  pomodoroTime: 25,
+  breakTime: 5,
 };
 
 var pomodoroDone = new Audio("pomodoro.wav");
@@ -53,6 +52,7 @@ function startTimer() {
 
 function resetMode(mode) {
   clearInterval(interval);
+  startStopButton.innerHTML = "Start";
   timer.mode = mode;
   timer.timeRemaining = {
     total: timer[mode] * 60,
