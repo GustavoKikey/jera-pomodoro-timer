@@ -5,7 +5,7 @@ Um timer baseado no método de pomodoro, criado para o Processo Seletivo da Jera
 **Features:**
 - :heavy_check_mark: Timer de pomodoro (25 min) 
 - :heavy_check_mark: Timer de intervalo (5 min)
-- :clock3: Som de notificação
+- :heavy_check_mark: Som de notificação
 
 **Features adicionais:**
 - :clock3: Mostrar notificações na plataforma escolhida
